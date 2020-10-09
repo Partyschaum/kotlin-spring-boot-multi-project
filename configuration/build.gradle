@@ -1,0 +1,12 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.4.RELEASE'
+}
+
+dependencies {
+    implementation project(':common')
+    implementation project(':application')
+    implementation project(':adapters:persistence')
+    implementation project(':adapters:web')
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+}

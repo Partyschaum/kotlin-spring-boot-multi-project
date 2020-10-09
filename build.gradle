@@ -8,7 +8,6 @@ repositories {
     mavenCentral()
 }
 
-
 subprojects {
     group = 'de.shinythings.hexagon'
     version = '0.0.1-SNAPSHOT'
@@ -28,5 +27,13 @@ subprojects {
         imports {
             mavenBom('org.springframework.boot:spring-boot-dependencies:2.3.4.RELEASE')
         }
+    }
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
     }
 }

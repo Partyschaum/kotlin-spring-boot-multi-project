@@ -1,8 +1,8 @@
 package de.shinythings.hexagon.application.usecase
 
-import de.shinythings.hexagon.application.port.input.SendMoney.SendMoneyCommand
+import de.shinythings.hexagon.application.port.input.GetAccountBalance.GetAccountBalanceQuery
+import de.shinythings.hexagon.application.port.input.GetAccountBalance.GetAccountBalanceResponse
 import de.shinythings.hexagon.application.port.out.LoadAccount
-import de.shinythings.hexagon.application.port.out.UpdateAccount
 import de.shinythings.hexagon.domain.Account
 import de.shinythings.hexagon.domain.Account.AccountId
 import de.shinythings.hexagon.domain.ActivityWindow
@@ -11,11 +11,11 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import java.time.LocalDateTime
 
-class SendMoneyTest : DescribeSpec() {
+class GetAccountBalanceTest : DescribeSpec() {
 
     init {
-        describe("SendMoney") {
-            it("sends money") {
+        describe("GetAccountsBalance") {
+            it("gets the account's balance") {
                 val dummyAccount = Account(
                         id = AccountId(42),
                         baselineBalance = Money.of(10),
@@ -26,22 +26,19 @@ class SendMoneyTest : DescribeSpec() {
 
                 val loadAccount = LoadAccountDummy(dummyAccount)
 
-                val updateAccount = UpdateAccountDummy()
-
-                val sendMoney = SendMoney(
-                        loadAccount = loadAccount,
-                        updateAccount = updateAccount
+                val getAccountBalance = GetAccountBalance(
+                        loadAccount = loadAccount
                 )
 
-                sendMoney(
-                        SendMoneyCommand(
-                                sourceAccountId = AccountId(23),
-                                targetAccountId = AccountId(42),
-                                money = Money.of(15)
+                val response = getAccountBalance(
+                        GetAccountBalanceQuery(
+                                accountId = AccountId(42)
                         )
                 )
 
-                updateAccount.updateActivitiesWasCalled shouldBe true
+                response shouldBe GetAccountBalanceResponse(
+                        money = Money.of(10)
+                )
             }
         }
     }
@@ -49,14 +46,5 @@ class SendMoneyTest : DescribeSpec() {
     private class LoadAccountDummy(private val account: Account) : LoadAccount {
 
         override fun loadAccount(accountId: AccountId, baselineDate: LocalDateTime) = account
-    }
-
-    private class UpdateAccountDummy() : UpdateAccount {
-
-        var updateActivitiesWasCalled = false
-
-        override fun updateActivities(account: Account) {
-            updateActivitiesWasCalled = true
-        }
     }
 }

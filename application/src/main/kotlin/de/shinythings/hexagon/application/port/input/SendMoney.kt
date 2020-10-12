@@ -1,10 +1,15 @@
 package de.shinythings.hexagon.application.port.input
 
-import de.shinythings.hexagon.application.port.Input
-import de.shinythings.hexagon.application.port.input.SendMoney.Request
+import de.shinythings.hexagon.application.port.Command
+import de.shinythings.hexagon.application.port.input.SendMoney.SendMoneyCommand
 import de.shinythings.hexagon.domain.Account.AccountId
+import de.shinythings.hexagon.domain.Money
 
-interface SendMoney : Input<Request, Unit> {
-    data class Request(val accountId: AccountId)
-    data class Response(val success: Boolean)
+abstract class SendMoney : Command<SendMoneyCommand>() {
+
+    data class SendMoneyCommand(
+            val sourceAccountId: AccountId,
+            val targetAccountId: AccountId,
+            val money: Money
+    )
 }

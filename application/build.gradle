@@ -1,7 +1,13 @@
+plugins {
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.4.10'
+}
+
 dependencies {
     implementation project(':common')
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    implementation 'javax.transaction:javax.transaction-api'
 
     testImplementation "io.kotest:kotest-runner-junit5-jvm:$koTestVersion"
     testImplementation "io.kotest:kotest-assertions-core-jvm:$koTestVersion"

@@ -30,10 +30,18 @@ subprojects {
     }
 
     compileKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            allWarningsAsErrors = true
+        }
     }
 
     compileTestKotlin {
-        kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_1_8
+            freeCompilerArgs = ["-Xjsr305=strict"]
+            allWarningsAsErrors = true
+        }
     }
 }

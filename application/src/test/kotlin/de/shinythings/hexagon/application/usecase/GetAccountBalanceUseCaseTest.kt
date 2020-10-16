@@ -1,8 +1,8 @@
 package de.shinythings.hexagon.application.usecase
 
-import de.shinythings.hexagon.application.port.input.GetAccountBalance.GetAccountBalanceQuery
-import de.shinythings.hexagon.application.port.input.GetAccountBalance.GetAccountBalanceResponse
-import de.shinythings.hexagon.application.port.out.LoadAccount
+import de.shinythings.hexagon.application.port.input.GetAccountBalancePort.GetAccountBalanceQuery
+import de.shinythings.hexagon.application.port.input.GetAccountBalancePort.GetAccountBalanceResponse
+import de.shinythings.hexagon.application.port.out.LoadAccountPort
 import de.shinythings.hexagon.domain.Account
 import de.shinythings.hexagon.domain.Account.AccountId
 import de.shinythings.hexagon.domain.ActivityWindow
@@ -11,7 +11,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import java.time.LocalDateTime
 
-class GetAccountBalanceTest : DescribeSpec() {
+class GetAccountBalanceUseCaseTest : DescribeSpec() {
 
     init {
         describe("GetAccountsBalance") {
@@ -24,10 +24,10 @@ class GetAccountBalanceTest : DescribeSpec() {
                         )
                 )
 
-                val loadAccount = LoadAccountDummy(dummyAccount)
+                val loadAccount = LoadAccountDummyAdapter(dummyAccount)
 
-                val getAccountBalance = GetAccountBalance(
-                        loadAccount = loadAccount
+                val getAccountBalance = GetAccountBalanceUseCase(
+                        loadAccountPort = loadAccount
                 )
 
                 val response = getAccountBalance(
@@ -43,7 +43,7 @@ class GetAccountBalanceTest : DescribeSpec() {
         }
     }
 
-    private class LoadAccountDummy(private val account: Account) : LoadAccount {
+    private class LoadAccountDummyAdapter(private val account: Account) : LoadAccountPort {
 
         override fun loadAccount(accountId: AccountId, baselineDate: LocalDateTime) = account
     }

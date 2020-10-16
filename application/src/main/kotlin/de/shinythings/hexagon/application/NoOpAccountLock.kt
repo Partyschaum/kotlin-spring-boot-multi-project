@@ -1,11 +1,11 @@
 package de.shinythings.hexagon.application
 
-import de.shinythings.hexagon.application.port.out.AccountLock
+import de.shinythings.hexagon.application.port.out.AccountLockPort
 import de.shinythings.hexagon.domain.Account
 import org.springframework.stereotype.Component
 
 @Component
-class NoOpAccountLock : AccountLock {
+class NoOpAccountLock : AccountLockPort {
 
     override fun lockAccount(accountId: Account.AccountId) {
         // do nothing

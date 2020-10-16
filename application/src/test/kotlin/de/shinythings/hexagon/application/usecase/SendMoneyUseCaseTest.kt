@@ -2,9 +2,9 @@ package de.shinythings.hexagon.application.usecase
 
 import de.shinythings.hexagon.application.MoneyTransferProperties
 import de.shinythings.hexagon.application.NoOpAccountLock
-import de.shinythings.hexagon.application.port.input.SendMoney.SendMoneyCommand
-import de.shinythings.hexagon.application.port.out.LoadAccount
-import de.shinythings.hexagon.application.port.out.UpdateAccount
+import de.shinythings.hexagon.application.port.input.SendMoneyPort.SendMoneyCommand
+import de.shinythings.hexagon.application.port.out.LoadAccountPort
+import de.shinythings.hexagon.application.port.out.UpdateAccountPort
 import de.shinythings.hexagon.domain.Account
 import de.shinythings.hexagon.domain.Account.AccountId
 import de.shinythings.hexagon.domain.ActivityWindow
@@ -13,7 +13,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.collections.shouldContain
 import java.time.LocalDateTime
 
-class SendMoneyTest : DescribeSpec() {
+class SendMoneyUseCaseTest : DescribeSpec() {
 
     init {
         describe("SendMoney") {
@@ -36,19 +36,19 @@ class SendMoneyTest : DescribeSpec() {
                         )
                 )
 
-                val loadAccount = LoadAccountDummy(
+                val loadAccount = LoadAccountDummyAdapter(
                         mapOf(
                                 sourceAccountId to sourceAccount,
                                 targetAccountId to targetAccount
                         )
                 )
 
-                val updateAccount = UpdateAccountDummy()
+                val updateAccount = UpdateAccountDummyAdapter()
 
-                val sendMoney = SendMoney(
-                        loadAccount = loadAccount,
-                        updateAccount = updateAccount,
-                        accountLock = NoOpAccountLock(),
+                val sendMoney = SendMoneyUseCase(
+                        loadAccountPort = loadAccount,
+                        updateAccountPort = updateAccount,
+                        accountLockPort = NoOpAccountLock(),
                         moneyTransferProperties = MoneyTransferProperties()
                 )
 
@@ -66,14 +66,14 @@ class SendMoneyTest : DescribeSpec() {
         }
     }
 
-    private class LoadAccountDummy(
+    private class LoadAccountDummyAdapter(
             private val accounts: Map<AccountId, Account>
-    ) : LoadAccount {
+    ) : LoadAccountPort {
 
         override fun loadAccount(accountId: AccountId, baselineDate: LocalDateTime) = accounts[accountId]
     }
 
-    private class UpdateAccountDummy() : UpdateAccount {
+    private class UpdateAccountDummyAdapter() : UpdateAccountPort {
 
         var updatedAccounts = mutableListOf<Account>()
 

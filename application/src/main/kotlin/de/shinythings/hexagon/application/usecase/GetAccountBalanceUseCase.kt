@@ -1,8 +1,8 @@
 package de.shinythings.hexagon.application.usecase
 
 import de.shinythings.hexagon.application.port.input.GetAccountBalancePort
-import de.shinythings.hexagon.application.port.out.LoadAccountPort
-import de.shinythings.hexagon.application.port.out.LoadAccountPort.AccountNotFoundException
+import de.shinythings.hexagon.application.port.output.LoadAccountPort
+import de.shinythings.hexagon.application.port.output.LoadAccountPort.AccountNotFoundException
 import java.time.LocalDateTime
 
 class GetAccountBalanceUseCase(

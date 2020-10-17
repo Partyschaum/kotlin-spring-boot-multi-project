@@ -3,9 +3,9 @@ package de.shinythings.hexagon.application.usecase
 import de.shinythings.hexagon.application.MoneyTransferProperties
 import de.shinythings.hexagon.application.ThresholdExceededException
 import de.shinythings.hexagon.application.port.input.SendMoneyPort
-import de.shinythings.hexagon.application.port.out.AccountLockPort
-import de.shinythings.hexagon.application.port.out.LoadAccountPort
-import de.shinythings.hexagon.application.port.out.UpdateAccountPort
+import de.shinythings.hexagon.application.port.output.AccountLockPort
+import de.shinythings.hexagon.application.port.output.LoadAccountPort
+import de.shinythings.hexagon.application.port.output.UpdateAccountPort
 import de.shinythings.hexagon.common.UseCase
 import java.time.LocalDateTime
 import javax.transaction.Transactional

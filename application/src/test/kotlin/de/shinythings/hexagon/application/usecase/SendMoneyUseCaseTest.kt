@@ -3,8 +3,8 @@ package de.shinythings.hexagon.application.usecase
 import de.shinythings.hexagon.application.MoneyTransferProperties
 import de.shinythings.hexagon.application.NoOpAccountLock
 import de.shinythings.hexagon.application.port.input.SendMoneyPort.SendMoneyCommand
-import de.shinythings.hexagon.application.port.out.LoadAccountPort
-import de.shinythings.hexagon.application.port.out.UpdateAccountPort
+import de.shinythings.hexagon.application.port.output.LoadAccountPort
+import de.shinythings.hexagon.application.port.output.UpdateAccountPort
 import de.shinythings.hexagon.domain.Account
 import de.shinythings.hexagon.domain.Account.AccountId
 import de.shinythings.hexagon.domain.ActivityWindow

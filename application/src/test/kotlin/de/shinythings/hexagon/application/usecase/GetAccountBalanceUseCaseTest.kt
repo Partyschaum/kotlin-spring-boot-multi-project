@@ -2,7 +2,7 @@ package de.shinythings.hexagon.application.usecase
 
 import de.shinythings.hexagon.application.port.input.GetAccountBalancePort.GetAccountBalanceQuery
 import de.shinythings.hexagon.application.port.input.GetAccountBalancePort.GetAccountBalanceResponse
-import de.shinythings.hexagon.application.port.out.LoadAccountPort
+import de.shinythings.hexagon.application.port.output.LoadAccountPort
 import de.shinythings.hexagon.domain.Account
 import de.shinythings.hexagon.domain.Account.AccountId
 import de.shinythings.hexagon.domain.ActivityWindow

@@ -22,6 +22,7 @@ class Account(
         }
 
         val withdrawal = Activity(
+                id = null,
                 ownerAccountId = id,
                 sourceAccountId = id,
                 targetAccountId = targetAccountId,
@@ -40,6 +41,7 @@ class Account(
 
     fun deposit(money: Money, sourceAccountId: AccountId): Boolean {
         val deposit = Activity(
+                id = null,
                 ownerAccountId = id,
                 sourceAccountId = sourceAccountId,
                 targetAccountId = id,

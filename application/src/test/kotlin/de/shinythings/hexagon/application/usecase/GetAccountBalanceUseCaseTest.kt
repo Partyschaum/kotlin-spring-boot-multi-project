@@ -45,6 +45,6 @@ class GetAccountBalanceUseCaseTest : DescribeSpec() {
 
     private class LoadAccountDummyAdapter(private val account: Account) : LoadAccountPort {
 
-        override fun loadAccount(accountId: AccountId, baselineDate: LocalDateTime) = account
+        override fun loadAccountOrNull(accountId: AccountId, baselineDate: LocalDateTime) = account
     }
 }

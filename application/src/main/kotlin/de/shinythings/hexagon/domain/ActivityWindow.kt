@@ -4,6 +4,8 @@ import de.shinythings.hexagon.domain.Account.AccountId
 
 class ActivityWindow(private val activities: MutableList<Activity>) {
 
+    constructor(vararg activity: Activity) : this(activity.toMutableList())
+
     fun startTimestamp() = activities.minOfOrNull { it.timestamp }
             ?: throw IllegalStateException("ActivityWindow has not activities yet!")
 

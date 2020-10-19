@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 
 interface LoadAccountPort {
 
-    fun loadAccount(accountId: AccountId, baselineDate: LocalDateTime): Account?
+    fun loadAccountOrNull(accountId: AccountId, baselineDate: LocalDateTime): Account?
 
     class AccountNotFoundException(accountId: AccountId) : RuntimeException(
             "No account was found for account ID '$accountId'"

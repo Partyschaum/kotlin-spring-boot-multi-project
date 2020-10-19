@@ -3,3 +3,5 @@ include 'adapters:web'
 include 'adapters:persistence'
 include 'configuration'
 include 'application'
+include 'testdata'
+

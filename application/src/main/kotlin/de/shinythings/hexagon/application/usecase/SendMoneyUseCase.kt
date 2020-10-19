@@ -29,10 +29,10 @@ class SendMoneyUseCase(
         val sourceAccountId = command.sourceAccountId
         val targetAccountId = command.targetAccountId
 
-        val sourceAccount = loadAccountPort.loadAccount(sourceAccountId, baselineDate)
+        val sourceAccount = loadAccountPort.loadAccountOrNull(sourceAccountId, baselineDate)
                 ?: throw IllegalStateException("Source account not found for source account ID $sourceAccountId")
 
-        val targetAccount = loadAccountPort.loadAccount(targetAccountId, baselineDate)
+        val targetAccount = loadAccountPort.loadAccountOrNull(targetAccountId, baselineDate)
                 ?: throw IllegalStateException("Target account not found for target account ID $targetAccountId")
 
         accountLockPort.lockAccount(sourceAccountId)

@@ -10,7 +10,7 @@ class GetAccountBalanceUseCase(
 ) : GetAccountBalancePort() {
 
     override fun handle(query: GetAccountBalanceQuery): GetAccountBalanceResponse {
-        val account = loadAccountPort.loadAccount(
+        val account = loadAccountPort.loadAccountOrNull(
                 accountId = query.accountId,
                 baselineDate = LocalDateTime.now()
         ) ?: throw AccountNotFoundException(query.accountId)

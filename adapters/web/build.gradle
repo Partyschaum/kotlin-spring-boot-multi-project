@@ -13,11 +13,8 @@ dependencies {
         exclude group: 'org.mockito'
     }
 
+    testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("com.ninja-squad:springmockk:2.0.3")
-
-    testImplementation "io.kotest:kotest-runner-junit5-jvm:$koTestVersion"
-    testImplementation("io.kotest:kotest-extensions-spring:$koTestVersion")
-    testImplementation "io.kotest:kotest-assertions-core-jvm:$koTestVersion"
 }
 
 test {

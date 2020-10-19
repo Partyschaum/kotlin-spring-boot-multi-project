@@ -70,7 +70,7 @@ class SendMoneyUseCaseTest : DescribeSpec() {
             private val accounts: Map<AccountId, Account>
     ) : LoadAccountPort {
 
-        override fun loadAccount(accountId: AccountId, baselineDate: LocalDateTime) = accounts[accountId]
+        override fun loadAccountOrNull(accountId: AccountId, baselineDate: LocalDateTime) = accounts[accountId]
     }
 
     private class UpdateAccountDummyAdapter() : UpdateAccountPort {

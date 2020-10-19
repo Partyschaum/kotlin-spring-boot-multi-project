@@ -14,6 +14,7 @@ I will try out additional tools, concepts and libraries which I deem interesting
 
 ### Nice To Haves
 
+- [Migrate](https://guides.gradle.org/migrating-build-logic-from-groovy-to-kotlin/) to [Gradle Kotlin DSL](https://docs.gradle.org/5.0/userguide/kotlin_dsl.html)
 - Setup [ktlint](https://github.com/pinterest/ktlint)
 - Setup [Dependabot](https://dependabot.com/)
 - Setup [GitHub Actions](https://ryanharrison.co.uk/2020/04/12/kotlin-java-ci-with-github-actions.html)

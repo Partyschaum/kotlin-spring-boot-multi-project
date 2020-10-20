@@ -24,7 +24,7 @@ class SendMoneyUseCase(
 
         checkThreshold(command)
 
-        val baselineDate = LocalDateTime.now()
+        val baselineDate = LocalDateTime.now().minusDays(10)
 
         val sourceAccountId = command.sourceAccountId
         val targetAccountId = command.targetAccountId
@@ -36,7 +36,7 @@ class SendMoneyUseCase(
                 ?: throw IllegalStateException("Target account not found for target account ID $targetAccountId")
 
         accountLockPort.lockAccount(sourceAccountId)
-        if (!sourceAccount.withdraw(command.money, sourceAccountId)) {
+        if (!sourceAccount.withdraw(command.money, targetAccountId)) {
             accountLockPort.releaseAccount(sourceAccountId)
             return
         }

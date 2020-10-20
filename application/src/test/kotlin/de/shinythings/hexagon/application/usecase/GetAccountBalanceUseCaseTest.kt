@@ -5,46 +5,58 @@ import de.shinythings.hexagon.application.port.input.GetAccountBalancePort.GetAc
 import de.shinythings.hexagon.application.port.output.LoadAccountPort
 import de.shinythings.hexagon.domain.Account
 import de.shinythings.hexagon.domain.Account.AccountId
-import de.shinythings.hexagon.domain.ActivityWindow
 import de.shinythings.hexagon.domain.Money
-import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.shouldBe
+import io.mockk.every
+import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
+import io.mockk.mockk
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import java.time.LocalDateTime
 
-class GetAccountBalanceUseCaseTest : DescribeSpec() {
+@ExtendWith(MockKExtension::class)
+class GetAccountBalanceUseCaseTest {
 
-    init {
-        describe("GetAccountsBalance") {
-            it("gets the account's balance") {
-                val dummyAccount = Account(
-                        id = AccountId(42),
-                        baselineBalance = Money.of(10),
-                        activityWindow = ActivityWindow(
-                                activities = mutableListOf()
-                        )
+    @MockK
+    private lateinit var loadAccountPort: LoadAccountPort
+
+    @Test
+    fun `returns the balance of the account`() {
+
+        val accountId = AccountId(23)
+
+        val account = givenAnAccountWithId(accountId)
+        givenAccountHasBalance(account, Money.of(10))
+
+        val getAccountBalanceUseCase = GetAccountBalanceUseCase(
+                loadAccountPort = loadAccountPort
+        )
+
+        val response = getAccountBalanceUseCase(
+                GetAccountBalanceQuery(
+                        accountId = accountId
                 )
+        )
 
-                val loadAccount = LoadAccountDummyAdapter(dummyAccount)
-
-                val getAccountBalance = GetAccountBalanceUseCase(
-                        loadAccountPort = loadAccount
-                )
-
-                val response = getAccountBalance(
-                        GetAccountBalanceQuery(
-                                accountId = AccountId(42)
-                        )
-                )
-
-                response shouldBe GetAccountBalanceResponse(
+        assertThat(response).isEqualTo(
+                GetAccountBalanceResponse(
                         money = Money.of(10)
                 )
-            }
-        }
+        )
     }
 
-    private class LoadAccountDummyAdapter(private val account: Account) : LoadAccountPort {
+    private fun givenAccountHasBalance(account: Account, money: Money) {
+        every { account.calculateBalance() } returns money
+    }
 
-        override fun loadAccountOrNull(accountId: AccountId, baselineDate: LocalDateTime) = account
+    private fun givenAnAccountWithId(accountId: AccountId): Account {
+        val account = mockk<Account>()
+
+        every { account.id } returns accountId
+
+        every { loadAccountPort.loadAccountOrNull(eq(accountId), ofType(LocalDateTime::class)) } returns account
+
+        return account
     }
 }

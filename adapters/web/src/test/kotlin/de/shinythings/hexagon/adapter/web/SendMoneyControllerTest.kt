@@ -25,6 +25,7 @@ class SendMoneyControllerTest {
 
     @Test
     fun `sends money to the account`() {
+
         every { sendMoneyPort.invoke(any()) } returns Unit
 
         mockMvc.perform(post("/accounts/send/{sourceAccountId}/{targetAccountId}/{amount}", 41, 42, 500)
@@ -32,11 +33,13 @@ class SendMoneyControllerTest {
                 .andExpect(status().isOk)
 
         verify {
-            sendMoneyPort.invoke(SendMoneyCommand(
-                    sourceAccountId = AccountId(41),
-                    targetAccountId = AccountId(42),
-                    money = Money.of(500L)
-            ))
+            sendMoneyPort.invoke(
+                    SendMoneyCommand(
+                            sourceAccountId = AccountId(41),
+                            targetAccountId = AccountId(42),
+                            money = Money.of(500L)
+                    )
+            )
         }
     }
 }

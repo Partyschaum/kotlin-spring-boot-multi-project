@@ -1,5 +1,6 @@
 package de.shinythings.hexagon.common
 
+import org.springframework.core.annotation.AliasFor
 import org.springframework.stereotype.Component
 
 @Target(AnnotationTarget.ANNOTATION_CLASS, AnnotationTarget.CLASS)
@@ -13,5 +14,6 @@ annotation class UseCase(
          * to be turned into a Spring bean in case of an autodetected component.
          * @return the suggested component name, if any (or empty String otherwise)
          */
+        @get:AliasFor(annotation = Component::class)
         val value: String = ""
 )

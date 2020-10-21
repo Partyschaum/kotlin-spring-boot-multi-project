@@ -8,6 +8,14 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation project(':configuration')
+}
+
+springBoot {
+    mainClassName = 'de.shinythings.hexagon.HexagonApplicationKt'
+}
+
 subprojects {
     group = 'de.shinythings.hexagon'
     version = '0.0.1-SNAPSHOT'
